@@ -9,7 +9,7 @@ import UIKit
 
 extension UIImageView {
     func load(url: URL, completion: @escaping CompletionHandler<UIImage?>) {
-        DispatchQueue.global(qos: .background).async { [weak self] in
+        DispatchQueue.global(qos: .background).async {
             guard let data = try? Data(contentsOf: url),
                   let image = UIImage(data: data)
             else {
@@ -18,7 +18,6 @@ extension UIImageView {
             }
 
             DispatchQueue.main.async {
-                self?.image = image
                 completion(image)
             }
         }

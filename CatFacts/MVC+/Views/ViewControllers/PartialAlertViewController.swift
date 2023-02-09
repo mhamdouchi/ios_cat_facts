@@ -155,7 +155,7 @@ extension PartialAlertViewController {
     }
 }
 
-// MARK: - InvestOptionCellActionable
+// MARK: - AlertOptionCellActionable
 extension PartialAlertViewController: AlertOptionCellActionable {
     func didSelect(_ alertOption: PartialAlertAction) {
         alertOption.action()
