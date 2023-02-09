@@ -9,3 +9,6 @@
 • Random Cat fact: https://github.com/wh-iterabb-it/meowfacts
 
 • Random Cat Picture: https://placekitten.com/
+
+## Additional functionality
+• By tapping on the tab bar button, the user can access a list of languages. From there, the user can choose a language which will then result in the display of a new cat image and corresponding cat fact in the selected language.
