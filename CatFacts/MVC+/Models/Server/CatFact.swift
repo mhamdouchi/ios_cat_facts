@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct CatFact {
-    let data: String
+struct CatFact: Codable {
+    let data: [String]
 }

@@ -18,3 +18,10 @@ struct APIService: HTTPClient {
         self.session = session
     }
 }
+
+// MARK: - AppServiceable
+extension APIService: FactServiceable {
+    func fetchCatFact(_ language: Language?) async -> Result<CatFact, RequestError> {
+        await sendRequest(endpoint: FactEndpoint.fetchCatFact(language?.symbol), responseModel: CatFact.self)
+    }
+}

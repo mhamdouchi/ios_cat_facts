@@ -5,10 +5,15 @@
 //  Created by Mohamed Hamdouchi on 2/8/23.
 //
 
-import Foundation
+import UIKit
 
 protocol HomeCoordinatorDataSourceType {
-    func load(url: String, completion: @escaping UIImageViewCompletion)
+    func load(url: String, completion: @escaping CompletionHandler<UIImageView?>)
+    func fetchFact(_ language: Language?, _ completion: @escaping CompletionHandler<String?>)
+}
+
+protocol HomeCoordinatorNavigatorType {
+    func navigate(to destination: HomeNavigator.Destination)
 }
 
 class HomeCoordinator {
@@ -23,9 +28,22 @@ class HomeCoordinator {
 
 // MARK: - HomeCoordinatorDataSourceType
 extension HomeCoordinator: HomeCoordinatorDataSourceType {
-    func load(url: String, completion: @escaping UIImageViewCompletion) {
+    func load(url: String, completion: @escaping CompletionHandler<UIImageView?>) {
         dataSource.load(url: url) { imageView in
             completion(imageView)
         }
+    }
+
+    func fetchFact(_ language: Language?, _ completion: @escaping CompletionHandler<String?>) {
+        dataSource.fetchFact(language) { fact in
+            completion(fact)
+        }
+    }
+}
+
+// MARK: - HomeCoordinatorNavigatorType
+extension HomeCoordinator: HomeCoordinatorNavigatorType {
+    func navigate(to destination: HomeNavigator.Destination) {
+        navigator.navigate(to: destination)
     }
 }

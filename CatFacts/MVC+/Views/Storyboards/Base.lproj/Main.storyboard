@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gdy-hL-lsp">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,14 +17,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qsq-PZ-blK">
-                                <rect key="frame" x="50" y="147" width="290" height="128"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qsq-PZ-blK">
+                                <rect key="frame" x="50" y="151" width="290" height="128"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qeD-3R-xse">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qeD-3R-xse">
                                         <rect key="frame" x="0.0" y="0.0" width="290" height="118"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTP-SG-m2M">
-                                        <rect key="frame" x="0.0" y="128" width="290" height="0.0"/>
+                                        <rect key="frame" x="145" y="128" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -37,10 +38,18 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="qsq-PZ-blK" secondAttribute="bottom" constant="20" id="6W6-lZ-M9u"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qsq-PZ-blK" secondAttribute="trailing" constant="40" id="CwO-Pz-kxM"/>
                             <constraint firstItem="qsq-PZ-blK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="SWf-1l-Cnp"/>
-                            <constraint firstItem="qsq-PZ-blK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="UTv-qu-7Ce"/>
+                            <constraint firstItem="qsq-PZ-blK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="UTv-qu-7Ce"/>
                             <constraint firstItem="qsq-PZ-blK" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="gch-2X-Acl"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="dQm-S6-FFL">
+                        <barButtonItem key="rightBarButtonItem" id="yeQ-lY-feg">
+                            <imageReference key="image" image="Languages" symbolScale="large"/>
+                            <connections>
+                                <action selector="didTapLanguages:" destination="BYZ-38-t0r" id="14C-RO-zyR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="imageViewCat" destination="qeD-3R-xse" id="4eW-WD-TGX"/>
                         <outlet property="labelCatFact" destination="BTP-SG-m2M" id="S4b-qi-lHc"/>
@@ -48,10 +57,29 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140" y="26"/>
+            <point key="canvasLocation" x="1069.2307692307693" y="25.592417061611375"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="POF-xU-1wM">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Gdy-hL-lsp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yqE-FN-zB4">
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Uhz-2Q-e2H"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cV1-xa-kDA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="25.592417061611375"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Languages" width="20" height="15"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

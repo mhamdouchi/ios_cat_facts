@@ -7,10 +7,9 @@
 
 import UIKit
 
-typealias UIImageViewCompletion = (UIImageView?) -> Void
-
 protocol HomeDataSourceType {
-    func load(url: String, completion: @escaping UIImageViewCompletion)
+    func load(url: String, completion: @escaping CompletionHandler<UIImageView?>)
+    func fetchFact(_ language: Language?, _ completion: @escaping CompletionHandler<String?>)
 }
 
 class HomeDataSource {
@@ -23,7 +22,7 @@ class HomeDataSource {
 
 // MARK: - HomeDataSourceType
 extension HomeDataSource: HomeDataSourceType {
-    func load(url: String, completion: @escaping UIImageViewCompletion) {
+    func load(url: String, completion: @escaping CompletionHandler<UIImageView?>) {
         guard let imageURL = URL(string: url)
         else {
             completion(nil)
@@ -38,6 +37,24 @@ extension HomeDataSource: HomeDataSourceType {
                 completion(imageView)
             } else {
                 completion(nil)
+            }
+        }
+    }
+
+    func fetchFact(_ language: Language?, _ completion: @escaping CompletionHandler<String?>) {
+        Task(priority: .background) {
+            let result = await apiService.fetchCatFact(language)
+
+            switch result {
+                case let .success(catFact):
+                    DispatchQueue.main.async {
+                        completion(catFact.data.first)
+                    }
+
+                case .failure:
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
             }
         }
     }

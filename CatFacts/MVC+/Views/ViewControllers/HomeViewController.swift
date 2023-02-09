@@ -14,11 +14,20 @@ class HomeViewController: UIViewController {
     }
 
     private var coordinator: HomeCoordinator?
+    private var loadingState: LoadingState = .loading
+
+    var currentLanguage: Language? {
+        didSet {
+            loadCatImage(currentLanguage)
+        }
+    }
 
     @IBOutlet var imageViewCat: UIImageView!
     @IBOutlet var labelCatFact: UILabel!
 
-    private var loadingState: LoadingState = .loading
+    @IBAction func didTapLanguages(_: UIBarButtonItem) {
+        coordinator?.navigate(to: .languages)
+    }
 }
 
 // MARK: - Lifecycle
@@ -28,9 +37,10 @@ extension HomeViewController {
 
         configureCoordinator()
         configureUI()
+        configureContent()
         configureGestures()
 
-        loadCatImage()
+        currentLanguage = .english
     }
 }
 
@@ -54,16 +64,38 @@ extension HomeViewController {
 
 // MARK: - Content
 extension HomeViewController {
-    private func loadCatImage() {
+    private func configureContent() {
+        title = "Cat Facts"
+    }
+
+    private func loadCatImage(_ language: Language?) {
+        clearCatImage()
+        clearCatFact()
+
         let url = CatImageGenerator.generate()
 
         coordinator?.load(url: url, completion: { [weak self] imageView in
             if let imageView = imageView {
                 self?.imageViewCat.image = imageView.image
+                self?.loadCatFact(language)
             }
 
             self?.loadingState = .completed
         })
+    }
+
+    private func loadCatFact(_ language: Language?) {
+        coordinator?.fetchFact(language) { [weak self] fact in
+            self?.labelCatFact.text = fact
+        }
+    }
+
+    private func clearCatImage() {
+        imageViewCat.image = nil
+    }
+
+    private func clearCatFact() {
+        labelCatFact.text = nil
     }
 }
 
@@ -81,7 +113,7 @@ extension HomeViewController {
         switch loadingState {
             case .completed:
                 loadingState = .loading
-                loadCatImage()
+                loadCatImage(currentLanguage)
 
             case .loading:
                 debugPrint("Please wait while loading a new cute cat image")

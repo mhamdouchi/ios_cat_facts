@@ -7,10 +7,8 @@
 
 import UIKit
 
-typealias UIImageCompletion = (UIImage?) -> Void
-
 extension UIImageView {
-    func load(url: URL, completion: @escaping UIImageCompletion) {
+    func load(url: URL, completion: @escaping CompletionHandler<UIImage?>) {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let data = try? Data(contentsOf: url),
                   let image = UIImage(data: data)
