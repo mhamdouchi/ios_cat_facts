@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "cat-300-250.jpeg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "compression-type" : "automatic"
+  }
+}

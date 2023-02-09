@@ -9,26 +9,46 @@
 import XCTest
 
 final class CatFactsTests: XCTestCase {
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testLoadingValidImage() {
+        let imageUrl = URL(string: "https://placekitten.com/g/300/250")!
+        let expectedImage = UIImage(named: "cat-300-250", in: Bundle.main, compatibleWith: nil)
+
+        let expectation = expectation(description: "Image should be loaded successfully")
+
+        UIImageView().load(url: imageUrl) { image in
+            XCTAssertNotNil(image, "Image should not be nil")
+            XCTAssertEqual(image?.pngData(), expectedImage?.pngData(), "Image loaded from URL does not match expected image")
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5.0, handler: nil)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testLoadingInvalidImage() {
+        let imageUrl = URL(string: "https://placekitten.com/invalid.jpg")!
+
+        let expectation = expectation(description: "Image should be loaded successfully")
+
+        UIImageView().load(url: imageUrl) { image in
+            XCTAssertNil(image, "Image should be nil for invalid URL")
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 5.0, handler: nil)
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
+    func testFactLoading() async {
+        let result = await APIService.shared.fetchCatFact(.english)
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+        switch result {
+            case let .success(facts):
+                XCTAssertFalse(facts.data.isEmpty, "The API response should not be empty")
+
+                let firstFact = facts.data[0]
+                XCTAssertTrue(type(of: firstFact) == String.self, "The first fact should be a string")
+
+            case let .failure(error):
+                XCTFail("The result should be a success, but got error: \(error)")
         }
     }
 }
